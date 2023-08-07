@@ -1,0 +1,32 @@
+"use strict";
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  tls: {
+    rejectUnauthorized: false
+  },
+  auth: {
+    user: 'eldarmamratov@gmail.com',
+    pass: 'xjlxgmcehgirtdhi'
+  }
+});
+
+function sendEmail(to, subject, text) {
+  const mailOptions = {
+    from: 'eldarmamratov@gmail.com',
+    to: to,
+    subject: subject,
+    text: text, 
+}
+
+transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('e-mail sent:' + info.response);
+    }
+}) 
+};
+
+module.exports = sendEmail;
