@@ -4,7 +4,6 @@ const Country = require('../region/Country')
 const City = require('../region/City')
 const User = require('../auth/User')
 const Media = require('../media/Media')
-const Comment = require('./Comment')
 
 const Post = sequelize.define('Post', {
     description: {
@@ -13,6 +12,10 @@ const Post = sequelize.define('Post', {
     },
     likes: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    comments: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     reposts: {
@@ -29,7 +32,5 @@ Post.belongsTo(Country, {foreignKey: 'countryId'});
 Post.belongsTo(City, {foreignKey: 'location'});
 Post.belongsTo(User, {foreignKey: 'userId'});
 Post.belongsTo(Media, {foreignKey: 'mediaId'});
-Post.hasMany(Comment, {foreignKey: 'commentId'});
-
 
 module.exports = Post;

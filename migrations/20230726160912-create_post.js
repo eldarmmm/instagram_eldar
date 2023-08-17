@@ -2,6 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // Create the Posts table
     await queryInterface.createTable('Posts', {
       id: {
         type: Sequelize.INTEGER,
@@ -14,6 +15,10 @@ module.exports = {
       },
       likes: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      comments: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       reposts: {
@@ -54,7 +59,7 @@ module.exports = {
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'SET NULL', // Or 'CASCADE' or 'RESTRICT' depending on your use case
       },
     });
   },
