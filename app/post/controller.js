@@ -15,8 +15,20 @@ const createPost = async(req, res) => {
 
     res.status(200).send(post);
 
-} 
+}  
+
+const getMyPosts = async(req, res) => {
+    const posts = await Post.findAll({where: {userId: req.user.id}});
+    res.status(200).send(posts)
+}
+
+const getPost = async(req, res) => {
+    const post = await Post.findByPk(req.params.id);
+    res.status(200).send(post)
+}
 
 module.exports = {
-    createPost
+    createPost,
+    getMyPosts,
+    getPost
 }
