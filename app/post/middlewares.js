@@ -1,3 +1,5 @@
+const Post = require('./Post')
+
 const validatePost = (req, res, next) => {
     let errors = {};
 
@@ -8,4 +10,13 @@ const validatePost = (req, res, next) => {
     else next()
 }
 
-module.exports = {validatePost}
+const isPostAuthor = async(req, res, next) => {
+    const id = req.params.id || req.body.id
+
+    const post = await Post.findByPk(id)
+    if (post && req.user.id === post.userId) next();
+    else res.status(403).send({message: "Access denied"})
+
+}
+
+module.exports = {validatePost, isPostAuthor}

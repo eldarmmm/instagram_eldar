@@ -27,8 +27,33 @@ const getPost = async(req, res) => {
     res.status(200).send(post)
 }
 
+const deletePost = async(req, res) => {
+
+    const data = await Post.destroy({where: {id: req.params.id}})
+    
+    res.status(200).end()
+}
+
+const editPost = async(req, res) => {
+    await Post.update({
+        description: req.body.description,
+        likes: req.body.likes,
+        comments: req.body.comments,
+        reposts: req.body.reposts,
+        countryId: req.body.countryId,
+        location: req.body.location,
+        userId: req.body.userId,
+        mediaId: req.body.mediaId
+    }, {where: {
+        id: req.body.id
+    }})
+    res.status(200).end()
+}
+
 module.exports = {
     createPost,
     getMyPosts,
-    getPost
+    getPost,
+    deletePost,
+    editPost
 }
